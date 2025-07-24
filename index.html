@@ -1,43 +1,36 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>QQ、微信防红接口 - 勿埋我心</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+<div id="tips" style="font-size:25px;text-align: center;line-height: 50px;"></div>
+<div id="top-bar-guidance" style="font-size:15px;color:#fff;height:95%;line-height:0.25;padding-left:20px;padding-top:15px;background:url(https://pic.rmb.bdstatic.com/bjh/user/cb63edac77c16078c5a30bf157b20c88.png) center top/contain no-repeat;"></div>
 
-		<!-- Header -->
-			<header id="header">
-				<h1>QQ、微信防红接口</h1>
-				<p>在下方输入需要跳转的链接，即可生成防红接口。<br>
-					复制下方生成的链接，粘贴到微信或者QQ即可。</p>
-			</header>
 
-		<!-- Signup Form -->
-			<form id="signup-form" method="post">
-				<input type="url" name="url" id="url" placeholder="需要跳转的网址" />
-				<input type="button" value="生成" onclick="build_url()"/>
-			</form>
-			<p id="b_url"></p>
-
-			<script src="./assets/js/build_url.js"></script>
-
-		<!-- Footer -->
-			<footer id="footer">
-				<ul class="icons">
-
-					<li><a href="https://github.com/Qiantigers/qq_fanghong" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
-
-				</ul>
-				<ul class="copyright">
-					<li>&copy; Powered by <a href="https://www.skyqian.com" target="_blank">勿埋我心</a></li>
-				</ul>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="assets/js/main.js"></script>
-			<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"K8YSQIj3WDtj9gG6",ck:"K8YSQIj3WDtj9gG6"})</script>
-	</body>
-</html>
+<script>
+    var url = document.location.toString();
+    var urlParmStr = url.slice(url.indexOf('=')+1);
+    var ua = navigator.userAgent.toLowerCase();
+    var isWeixin = ua.indexOf('micromessenger') != -1;
+    var isAndroid = ua.indexOf('android') != -1;
+    var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+	function J_get(name, url)
+{
+	url  = url?url:self.window.document.location.href;
+	var start	= url.indexOf(name + '=');
+	if (start == -1) return '';
+	var len = start + name.length + 1;
+	var end = url.indexOf('&',len);
+  	if (end == -1) end = url.length;
+  	return unescape(url.substring(len,end));
+}
+	var id = J_get('id');
+ 
+    // 判断是不是在微信客户端打开
+    if(isWeixin) {  
+         document.getElementById("top-bar-guidance").innerHTML= '<img src="https://pic.rmb.bdstatic.com/bjh/user/97fbaae6fbc83a4a5beb2ea317fe7bb3.png" style="width:50px;height:50px;vertical-align:middle;margin:0 .1em" />'
+		} else if (id=='') { 
+        // 不是微信客户端，直接可以访问链接
+          document.getElementById("tips").innerHTML= '请在本站加上跳转参数?id=需要跳转网站'
+    } else { 
+        // 不是微信客户端，直接可以访问链接
+        location.href=urlParmStr;
+    }
+</script>
